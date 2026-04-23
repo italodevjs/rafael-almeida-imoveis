@@ -24,3 +24,6 @@ Abra http://localhost:8000
 - Playfair Display (títulos)
 - Inter (corpo)
 - Dancing Script (assinatura)
+
+## Licença
+MIT
