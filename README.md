@@ -27,3 +27,22 @@ Abra http://localhost:8000
 
 ## Licença
 MIT
+
+## Seções do site
+
+- Hero com imagem cinematográfica
+- Portfólio com filtros (Venda, Locação, Litoral, Exclusividades)
+- Sobre o corretor
+- Serviços
+- Processo em 4 etapas
+- Depoimentos de clientes
+- Bairros atendidos
+- FAQ
+- Formulário de contato
+
+## Tecnologias
+
+- HTML5 semântico
+- CSS3 com custom properties
+- JavaScript vanilla (sem frameworks)
+- Google Fonts (Playfair Display + Inter)
