@@ -155,21 +155,63 @@
   });
 })();
 
-// ===== Contact form =====
+// ===== Contact form → WhatsApp =====
 (function () {
   const form = document.getElementById('contactForm');
   if (!form) return;
+  const WA_NUMBER = '5511998765432';
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+
+    // Native validation before doing anything
+    if (!form.reportValidity()) return;
+
     const btn = form.querySelector('button[type="submit"]');
-    if (!btn) return;
-    const original = btn.innerHTML;
-    btn.innerHTML = 'Mensagem enviada ✓';
-    btn.style.background = '#22843b';
-    setTimeout(() => {
-      form.reset();
-      btn.innerHTML = original;
-      btn.style.background = '';
-    }, 2600);
+    const data = new FormData(form);
+    const name = (data.get('name') || '').toString().trim();
+    const phone = (data.get('phone') || '').toString().trim();
+    const email = (data.get('email') || '').toString().trim();
+    const intent = (data.get('intent') || '').toString().trim();
+    const budget = (data.get('budget') || '').toString().trim();
+    const message = (data.get('message') || '').toString().trim();
+
+    const lines = [
+      'Olá, Rafael! Vim pelo site.',
+      '',
+      '*Nome:* ' + name,
+      '*Telefone:* ' + phone,
+      '*E-mail:* ' + email,
+      '*Interesse:* ' + intent,
+      '*Ticket:* ' + budget,
+    ];
+    if (message) lines.push('*Mensagem:* ' + message);
+
+    const url = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
+
+    if (btn) {
+      const original = btn.innerHTML;
+      btn.innerHTML = 'Abrindo o WhatsApp ✓';
+      btn.style.background = '#22843b';
+      setTimeout(() => {
+        form.reset();
+        btn.innerHTML = original;
+        btn.style.background = '';
+      }, 2600);
+    }
+
+    window.open(url, '_blank', 'noopener');
   });
+})();
+
+// ===== WhatsApp float: peek label on load & near footer =====
+(function () {
+  const float = document.querySelector('[data-wa-float]');
+  if (!float || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // Briefly reveal the label a moment after load to invite a click
+  setTimeout(() => {
+    float.classList.add('is-expanded');
+    setTimeout(() => float.classList.remove('is-expanded'), 3200);
+  }, 2200);
 })();
